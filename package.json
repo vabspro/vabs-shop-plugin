@@ -7,11 +7,14 @@
 		"moment": "^2.29.1",
 		"react": "^16.8.6",
 		"react-dom": "^16.8.6",
-		"react-flatpickr": "^3.9.1"
+		"react-flatpickr": "^3.9.1",
+		"tailwind": "^4.0.0"
 	},
 	"scripts": {
-		"dev": "parcel watch ./src/scripts/backend/index.js ./src/scripts/frontend/index.js",
-		"build": "parcel build ./src/scripts/backend/index.js ./src/scripts/frontend/index.js"
+		"watchcss": "npx tailwindcss -i .src/css/styles.css -o dist/css/styles.css --watch",
+		"buildcss": "npx tailwindcss -i .src/css/styles.css -o dist/css/styles.css --minify",
+		"watchjs": "parcel watch .src/js/index.js --dist-dir dist/js --public-url /",
+		"buildjs": "parcel build .src/js/index.js --dist-dir dist/js --public-url /"
 	},
 	"browserslist": {
 		"production": [
