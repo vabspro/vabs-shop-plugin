@@ -22,6 +22,8 @@ include_once('public/index.php');
 function ini_vabs_shop_plugin()
 {
     $plugin = new VABS_SHOP_PLUGIN();
+    $plugin->createVirtualPages();
+    $plugin->createShopPageTemplate();
 }
 
 ini_vabs_shop_plugin();

@@ -1,6 +1,7 @@
 <?php
 
 require VABS_SHOP_PLUGIN_ROOTPATH . 'vendor/autoload.php';
+require VABS_SHOP_PLUGIN_ROOTPATH . 'public/api/filehandler.php';
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -9,7 +10,7 @@ class VABSShopEndpoints
 {
     public $logger;
     public $config;
-
+    public $fileHandler;
     public $token;
     public $client_id;
     public $url;
@@ -22,6 +23,7 @@ class VABSShopEndpoints
         include(VABS_SHOP_PLUGIN_ROOTPATH . '/public/config.php');
     
         $this->logger = new Logger('main');
+        $this->fileHandler = new FileHandler($config['api_token'], $config['url']);
         $this->config = $config;
         $this->token = $config['api_token'];
         $this->client_id = $config['client_id'];
@@ -29,6 +31,7 @@ class VABSShopEndpoints
 
         add_action('rest_api_init', function () {
             register_rest_route('app/v1', 'shopconfig', ['methods' => 'GET', 'callback' => array($this, 'get_shop_config_data')]);
+            register_rest_route('app/v1', 'vabsarticle', ['methods' => 'GET', 'callback' => array($this, 'get_all_articles')]);
         });
     }
 
@@ -43,6 +46,16 @@ class VABSShopEndpoints
     public function get_shop_config_data()
     {
         return ['ok' => true];
+    }
+
+    public function get_all_articles()
+    {
+        if(!$this->fileHandler->hasFile()){
+            return $this->fileHandler->updateFile();
+        }else{
+            return $this->fileHandler->getFile();
+        }
+    
     }
 
 }
