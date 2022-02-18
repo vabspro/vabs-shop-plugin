@@ -19,8 +19,7 @@ class VABSShopDependencies
 
     public function enqueue()
     {
-        wp_enqueue_style('vabs_shop_plugin_style', plugins_url( 'vabs-shop-plugin/dist/frontend/index.css'));
-        wp_enqueue_script('vabs_shop_plugin_script', plugins_url( 'vabs-shop-plugin/dist/frontend/index.js'), '', '', true);
-
+        wp_enqueue_style('vabs_shop_plugin_style', plugins_url( 'vabs-shop-plugin/dist/css/styles.css'));
+        wp_enqueue_script('vabs_shop_plugin_script', plugins_url( 'vabs-shop-plugin/dist/js/index.js'), '', '', true);
     }
 }
